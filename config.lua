@@ -47,7 +47,7 @@ function get_config()
     -- If the timestamp of the modification or the size is different, reload the configuration.
     config_attributes = new_config_attributes
     config_persistent_attributes = new_config_persistent_attributes
-    
+
     local conf_file = assert(io.open(conf_path, "r"), "Configuration file is missing")
     conf = json.decode(conf_file:read("*all"))
     conf_file:close()
@@ -83,6 +83,8 @@ function get_config()
     default_conf = {
         portal_scheme             = "https",
         portal_path               = "/ssowat/",
+        err404_to_portal          = true,
+        err404_path               = "/404.html"
         local_portal_domain       = "yunohost.local",
         domains                   = { conf["portal_domain"], "yunohost.local" },
         session_timeout           = 60 * 60 * 24,     -- one day
@@ -121,6 +123,11 @@ function get_config()
     conf.portal_url = conf["portal_scheme"].."://"..
                       conf["portal_domain"]..
                       conf["portal_path"]
+
+    -- Build portal full 404 page URL out of the configuration values
+    conf.404_url = conf["portal_scheme"].."://"..
+                   conf["portal_domain"]..
+                   conf["err404_path"]
 
 
     -- Always skip the portal to avoid redirection looping.

@@ -62,6 +62,8 @@
     },
     "portal_domain": "example.tld",
     "portal_path": "/yunohost/sso/",
+    "err404_to_portal": true,
+    "err404_path": "/404.html",
     "redirected_regex": {
         "example.tld/yunohost[\\/]?$": "https://example.tld/yunohost/sso/"
     },

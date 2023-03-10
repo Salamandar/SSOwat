@@ -315,9 +315,15 @@ for permission_name, permission_infos in pairs(conf["permissions"]) do
     end
 end
 
+---
+--- 5. REDIRECT TO 404 PAGE IF UNKNOWN URL -> PORTAL IS DISABLED
+---
+if conf["404_to_portal"] and longest_url_match == ""
+    hlp.redirect(conf.404_url)
+end
 
 ---
---- 5. CHECK CLIENT-PROVIDED AUTH HEADER (should almost never happen?)
+--- 6. CHECK CLIENT-PROVIDED AUTH HEADER (should almost never happen?)
 ---
 
 if permission ~= nil then
@@ -336,7 +342,7 @@ end
 
 --
 --
--- 6. APPLY PERMISSION
+-- 7. APPLY PERMISSION
 --
 --
 
